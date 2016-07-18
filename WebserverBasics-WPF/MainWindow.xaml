@@ -1,0 +1,53 @@
+﻿<Window x:Class="Microsoft.Samples.Kinect.WebserverBasics.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:tk="clr-namespace:Microsoft.Kinect.Toolkit;assembly=Microsoft.Kinect.Toolkit"
+        xmlns:local="clr-namespace:Microsoft.Samples.Kinect.WebserverBasics"
+        Title="Kinect2Webserver" SizeToContent="Height" Width="800" FontSize="16"
+        Loaded="WindowLoaded"  Closing="WindowClosing">
+
+    <Window.Resources>
+        <local:InverseBooleanConverter x:Key="inverseBooleanConverter"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="72"/>
+            <ColumnDefinition Width="15"/>
+            <ColumnDefinition Width="23"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="343.149"/>
+            <RowDefinition Height="0"/>
+            <RowDefinition Height="0*"/>
+        </Grid.RowDefinitions>
+        <tk:KinectSensorChooserUI Grid.Row="0" Grid.Column="0" KinectSensorChooser="{Binding KinectSensorChooser}" HorizontalAlignment="Left" IsListening="False" Margin="5,5,0,238" Width="40"/>
+        <DockPanel Grid.Row="0" Grid.Column="1" Margin="5,5,5,238" Grid.ColumnSpan="3">
+            <Button DockPanel.Dock="Top" Height="50" Width="100" Content="Start"
+                    IsEnabled="{Binding Path=IsStarted, Converter={StaticResource inverseBooleanConverter}}" Click="StartButtonOnClick"/>
+            <Button DockPanel.Dock="Top" Height="50" Width="100" Content="Stop"
+                    IsEnabled="{Binding Path=IsStarted}" Click="StopButtonOnClick"/>
+        </DockPanel>
+        <StackPanel Grid.Row="0" Grid.Column="4" Margin="10,0,10,233">
+            <TextBlock x:Name="OpenBrowserText" Margin="0 5">
+                <Hyperlink FontSize="16" x:Name="UriLink" Click="UriLinkOnClick">Open timeline in default browser</Hyperlink>
+                <LineBreak/>
+            </TextBlock>
+            <TextBlock x:Name="ServingFilesText" Margin="0 5" FontSize="11" TextWrapping="WrapWithOverflow">
+                <Run FontSize="14" FontWeight="Bold">Serving files from:</Run>
+                <Run x:Name="RootDirectoryTextRun"/>
+            </TextBlock>
+            <TextBlock x:Name="NotServingFilesText" Margin="0 5" FontSize="14" FontWeight="Bold" Visibility="Collapsed">
+                Not Serving Files
+            </TextBlock>
+        </StackPanel>
+        <Expander Grid.Column="0" Grid.ColumnSpan="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="5,110,5,8"
+                  ExpandDirection="Down" IsExpanded="True"
+                  Header="Logs:" FontWeight="Black">
+            <TextBox IsReadOnly="True" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" MinHeight="200"
+                     FontSize="10" Text="{Binding Path=ErrorText}"/>
+        </Expander>
+    </Grid>
+</Window>
