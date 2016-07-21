@@ -134,6 +134,7 @@ angular.module('timelineApp')
 
         function clearScene() {
           for (var i = scene.children.length - 1; 0 <= i; i--) {
+            scene.children[i].geometry.dispose();
             scene.remove(scene.children[i]);
           }
         }
