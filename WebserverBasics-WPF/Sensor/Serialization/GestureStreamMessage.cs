@@ -27,5 +27,21 @@ namespace Microsoft.Samples.Kinect.WebserverBasics.Sensor.Serialization
         /// Tracking ID of the body.
         /// </summary>
         public ulong trackingId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the body.
+        /// </summary>
+        /// <value>
+        /// The body.
+        /// </value>
+        public object body { get; set; }
+
+        public void UpdateBody(Body body)
+        {
+            if (body != null)
+            {
+                this.body = JsonSerializationExtensions.ExtractSerializableJsonData(body);
+            }
+        }
     }
 }
