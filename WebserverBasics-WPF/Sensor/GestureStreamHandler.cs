@@ -95,6 +95,9 @@ namespace Microsoft.Samples.Kinect.WebserverBasics.Sensor
                 var i = Array.FindIndex(bodies, s => s.TrackingId == entry.Key);
                 if (i < 0) {
                     this.gestureDictionary.Remove(entry.Key);
+
+                    ProcessGestureAsync(GestureType.BodyRemoved, entry.Key, null);
+
                     Debug.WriteLine("Body was removed: " + entry.Key);
                 }
             }
@@ -116,6 +119,9 @@ namespace Microsoft.Samples.Kinect.WebserverBasics.Sensor
                 gestures.UpdateAllGestures(body);
 
                 this.gestureDictionary.Add(body.TrackingId, gestures);
+
+                ProcessGestureAsync(GestureType.BodyAdded, body.TrackingId, body);
+
                 Debug.WriteLine("Body was added: " + body.TrackingId);
             }
         }
@@ -172,7 +178,7 @@ namespace Microsoft.Samples.Kinect.WebserverBasics.Sensor
         {
             Debug.WriteLine("Gesture was recognized: " + e.GestureType);
 
-            ProcessGestureAsync(e.GestureType, e.TrackingID);
+            ProcessGestureAsync(e.GestureType, e.TrackingID, e.Body);
         }
 
         /// <summary>
@@ -184,7 +190,7 @@ namespace Microsoft.Samples.Kinect.WebserverBasics.Sensor
         /// <param name="timestamp">
         /// Timestamp of <see cref="bodyFrame"/> from which we obtained body data.
         /// </param>
-        internal async void ProcessGestureAsync(GestureType gestureType, ulong trackingId)
+        internal async void ProcessGestureAsync(GestureType gestureType, ulong trackingId, Body body)
         {
             if (!this.gestureIsEnabled)
             {
@@ -206,6 +212,7 @@ namespace Microsoft.Samples.Kinect.WebserverBasics.Sensor
                 //{
                     this.gestureStreamMessage.trackingId = trackingId;
                     this.gestureStreamMessage.gestureType = gestureType;
+                    this.gestureStreamMessage.UpdateBody(body);
 
                     await this.ownerContext.SendStreamMessageAsync(this.gestureStreamMessage);
                 //}

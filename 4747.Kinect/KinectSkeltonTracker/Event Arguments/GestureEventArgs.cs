@@ -13,6 +13,7 @@ namespace KinectSkeltonTracker
 
     using System;
     using KinectSkeltonTracker.Gestures;
+    using Microsoft.Kinect;
 
     #endregion
 
@@ -27,10 +28,11 @@ namespace KinectSkeltonTracker
         /// <param name="type">The gesture type.</param>
         /// <param name="trackingID">The tracking ID.</param>
         /// <param name="userID">The user ID.</param>
-        public GestureEventArgs(GestureType type, ulong trackingID)
+        public GestureEventArgs(GestureType type, ulong trackingID, Body body)
         {
             this.TrackingID = trackingID;
             this.GestureType = type;
+            this.Body = body;
         }
 
         /// <summary>
@@ -57,6 +59,18 @@ namespace KinectSkeltonTracker
             set;
         }
 
+        /// <summary>
+        /// Gets or sets the body.
+        /// </summary>
+        /// <value>
+        /// The body.
+        /// </value>
+        public Body Body
+        {
+            get;
+            set;
+        }
+        
         /// <summary>
         /// Gets or sets the user ID.
         /// </summary>

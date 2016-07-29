@@ -97,7 +97,7 @@ namespace KinectSkeltonTracker.Gestures
                 {
                     if (this.GestureRecognised != null)
                     {
-                        this.GestureRecognised(this, new GestureEventArgs(this.type, data.TrackingId));
+                        this.GestureRecognised(this, new GestureEventArgs(this.type, data.TrackingId, data));
                         this.Reset();
                     }
                 }

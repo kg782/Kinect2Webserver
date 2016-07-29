@@ -58,6 +58,28 @@ namespace KinectSkeltonTracker.Gestures
         /// <summary>
         /// swiped right
         /// </summary>
-        RightSwipe 
+        RightSwipe,
+
+        /// <summary>
+        /// body found
+        /// </summary>
+        BodyAdded,
+
+        /// <summary>
+        /// body disappeared
+        /// </summary>
+        BodyRemoved,
+
+        /// <summary>
+        /// left hand push
+        /// </summary>
+        LeftPush,
+
+        /// <summary>
+        /// right hand push
+        /// </summary>
+        RightPush
+
+
     }
 }

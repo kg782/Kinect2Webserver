@@ -31,6 +31,7 @@ angular.module('timelineApp')
 
     function onGesture(frame) {
       writeLog(frame.trackingId + ' / ' + gestureTypeToString(frame.gestureType));
+      console.log('Gesture frame:', frame);
     }
 
     function gestureTypeToString(gestureType) {
