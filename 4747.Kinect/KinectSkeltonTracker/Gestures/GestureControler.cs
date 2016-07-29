@@ -14,6 +14,7 @@ namespace KinectSkeltonTracker.Gestures
     using System;
     using System.Collections.Generic;
     using Microsoft.Kinect;
+    using Microsoft.Samples.Kinect.Webserver;
 
     #endregion
 
@@ -30,7 +31,7 @@ namespace KinectSkeltonTracker.Gestures
         /// <summary>
         /// History of bodies
         /// </summary>
-        private List<Body> bodyHistory = new List<Body>();
+        private List<object> bodyHistory = new List<object>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GestureControler"/> class.
@@ -56,11 +57,15 @@ namespace KinectSkeltonTracker.Gestures
             }
 
             // Add body to history
-            if (bodyHistory.Count >= 30)
+            var maxHistory = 100;
+            if (bodyHistory.Count >= maxHistory)
             {
-                bodyHistory.Remove(bodyHistory[0]);
+                bodyHistory.RemoveAt(maxHistory - 1);
             }
-            bodyHistory.Insert(0, data);
+
+            // Serialize Body because the instance is shared across frames
+            object serializedBody = JsonSerializationExtensions.ExtractSerializableJsonData(data);
+            bodyHistory.Insert(0, serializedBody);
         }
 
         /// <summary>

@@ -72,7 +72,7 @@ namespace KinectSkeltonTracker.Gestures
         /// Updates the gesture.
         /// </summary>
         /// <param name="data">The body data.</param>
-        public void UpdateGesture(Body data, List<Body> bodyHistory)
+        public void UpdateGesture(Body data, List<object> bodyHistory)
         {
             if (this.paused)
             {

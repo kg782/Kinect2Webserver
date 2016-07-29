@@ -115,9 +115,12 @@
     <Compile Include="Gestures\GestureControler.cs" />
     <Compile Include="Event Arguments\GestureEventArgs.cs" />
     <Compile Include="Gestures\GestureEnumTypes.cs" />
+    <Compile Include="Gestures\GestureParts\GestureSegment.cs" />
     <Compile Include="Gestures\GestureParts\IGestureInterface.cs" />
     <Compile Include="Gestures\Gesture.cs" />
     <Compile Include="Gestures\GestureParts\Menu Gesture Parts\MenuSegments.cs" />
+    <Compile Include="Gestures\GestureParts\Push Gesture Parts\Push Right\PushRightSegment1.cs" />
+    <Compile Include="Gestures\GestureParts\Push Gesture Parts\Push Right\PushRightSegment2.cs" />
     <Compile Include="Gestures\GestureParts\Swipe Gesture Parts\Swipe Left\SwipeLeftSegment1.cs" />
     <Compile Include="Gestures\GestureParts\Swipe Gesture Parts\Swipe Left\SwipeLeftSegment2.cs" />
     <Compile Include="Gestures\GestureParts\Swipe Gesture Parts\Swipe Left\SwipeLeftSegment3.cs" />
@@ -128,6 +131,8 @@
     <Compile Include="Gestures\GestureParts\WaveGestureParts\Wave Left\WaveLeftSegment2.cs" />
     <Compile Include="Gestures\GestureParts\WaveGestureParts\Wave Right\WaveRightSegment1.cs" />
     <Compile Include="Gestures\GestureParts\WaveGestureParts\Wave Right\WaveRightSegment2.cs" />
+    <Compile Include="Gestures\GestureParts\Push Gesture Parts\Push Left\PushLeftSegment1.cs" />
+    <Compile Include="Gestures\GestureParts\Push Gesture Parts\Push Left\PushLeftSegment2.cs" />
     <Compile Include="KinectConnection\KinectConnection.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Event Arguments\BodyEventArgs.cs" />
@@ -193,6 +198,12 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Microsoft.Samples.Kinect.Webserver\Microsoft.Samples.Kinect.Webserver.csproj">
+      <Project>{9216e84f-1723-484e-8de6-250b875f24b6}</Project>
+      <Name>Microsoft.Samples.Kinect.Webserver</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

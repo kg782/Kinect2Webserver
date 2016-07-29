@@ -27,6 +27,6 @@ namespace KinectSkeltonTracker.Gestures
         /// </summary>
         /// <param name="body">The body.</param>
         /// <returns>GesturePartResult based on if the gesture part has been completed</returns>
-        GesturePartResult CheckGesture(Body body, List<Body> bodyHistory);
+        GesturePartResult CheckGesture(Body body, List<object> bodyHistory);
     }
 }

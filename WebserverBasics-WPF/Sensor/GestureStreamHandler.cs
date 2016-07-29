@@ -162,6 +162,16 @@ namespace Microsoft.Samples.Kinect.WebserverBasics.Sensor
             swiperightSegments[2] = new SwipeRightSegment3();
             gestures.AddGesture(GestureType.RightSwipe, swiperightSegments);
 
+            IRelativeGestureSegment[] pushLeftSegments = new IRelativeGestureSegment[2];
+            pushLeftSegments[0] = new PushLeftSegment1();
+            pushLeftSegments[1] = new PushLeftSegment2();
+            gestures.AddGesture(GestureType.LeftPush, pushLeftSegments);
+
+            IRelativeGestureSegment[] pushRightSegments = new IRelativeGestureSegment[2];
+            pushRightSegments[0] = new PushRightSegment1();
+            pushRightSegments[1] = new PushRightSegment2();
+            gestures.AddGesture(GestureType.RightPush, pushRightSegments);
+
             IRelativeGestureSegment[] menuSegments = new IRelativeGestureSegment[20];
             MenuSegments1 menuSegment = new MenuSegments1();
             for (int i = 0; i < 20; i++)

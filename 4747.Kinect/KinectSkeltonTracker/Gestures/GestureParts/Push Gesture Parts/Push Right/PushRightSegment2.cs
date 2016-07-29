@@ -1,11 +1,11 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="SwipeLeftSegment2.cs" company="Microsoft Limited">
+// <copyright file="PushRightSegment2.cs" company="Microsoft Limited">
 //  Copyright (c) Microsoft Limited, Microsoft Consulting Services, UK. All rights reserved.
 // All rights reserved.
 // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
 // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
 // </copyright>
-// <summary>The second part of the swipe left gesture</summary>
+// <summary>The second part of the swipe right gesture</summary>
 //-----------------------------------------------------------------------
 namespace KinectSkeltonTracker.Gestures.GestureParts
 {
@@ -19,9 +19,9 @@ namespace KinectSkeltonTracker.Gestures.GestureParts
     #endregion
 
     /// <summary>
-    /// The second part of the swipe left gesture
+    /// The second part of the swipe right gesture
     /// </summary>
-    public class SwipeLeftSegment2 : IRelativeGestureSegment
+    public class PushRightSegment2 : GestureSegment, IRelativeGestureSegment
     {
         /// <summary>
         /// Checks the gesture.
@@ -31,7 +31,7 @@ namespace KinectSkeltonTracker.Gestures.GestureParts
         public GesturePartResult CheckGesture(Body body, List<object> bodyHistory)
         {
             // Facing the sensors
-            if (Math.Abs(body.Joints[JointType.ShoulderLeft].Position.Z - body.Joints[JointType.ShoulderRight].Position.Z) > Properties.Settings.Default.SholderFacingDistance)
+            if (Math.Abs(body.Joints[JointType.ShoulderRight].Position.Z - body.Joints[JointType.ShoulderRight].Position.Z) > Properties.Settings.Default.SholderFacingDistance)
             {
                 //Debug.WriteLine("GesturePart 1 - Facing sensor - Fail");
                 return GesturePartResult.Fail;
@@ -48,30 +48,25 @@ namespace KinectSkeltonTracker.Gestures.GestureParts
 
             //Debug.WriteLine("GesturePart 1 - Body is in right distance - Pass");
 
-            // //Right hand in front of right shoulder
-            if (body.Joints[JointType.HandTipRight].Position.Z < body.Joints[JointType.ElbowRight].Position.Z)
+            //Right hand in front of right shoulder
+            if (body.Joints[JointType.HandTipRight].Position.Z < body.Joints[JointType.ShoulderRight].Position.Z)
             {
-                //Debug.WriteLine("GesturePart 1 - Right hand in front of right shoulder - PASS");
-                // //right hand below shoulder height but above hip height
-                if (body.Joints[JointType.HandTipRight].Position.Y < body.Joints[JointType.Head].Position.Y)
+                // Pause if hand is forwarding last moments
+                var frameBefore = 5;
+                if (bodyHistory.Count >= frameBefore)
                 {
-                    //Debug.WriteLine("GesturePart 1 - right hand below shoulder height but above hip height - PASS");
-                    // //right hand left of right shoulder & right of left shoulder
-                    if (body.Joints[JointType.HandTipRight].Position.X < body.Joints[JointType.ShoulderRight].Position.X && body.Joints[JointType.HandTipRight].Position.X > body.Joints[JointType.SpineShoulder].Position.X)
+                    var handZ = body.Joints[JointType.HandRight].Position.Z;
+                    var previousHandZ = getPositionOfJoint(bodyHistory[frameBefore - 1], JointType.HandRight, "z");
+                    if (handZ - previousHandZ < -0.1)
                     {
-                        //Debug.WriteLine("GesturePart 1 - right hand left of right shoulder & right of left shoulder - PASS");
                         return GesturePartResult.Suceed;
                     }
-
-                    //Debug.WriteLine("GesturePart 1 - right hand left of right shoulder & right of left shoulder - UNDETERMINED");
-                    return GesturePartResult.Pausing;
                 }
 
-                //Debug.WriteLine("GesturePart 1 - right hand below shoulder height but above hip height - FAIL");
-                return GesturePartResult.Fail;
+                return GesturePartResult.Pausing;
             }
 
-            //Debug.WriteLine("GesturePart 1 - Right hand in front of right shoulder - FAIL");
+            //Debug.WriteLine("GesturePart 1 - right hand in front of right shoulder - FAIL");
             return GesturePartResult.Fail;
         }
     }

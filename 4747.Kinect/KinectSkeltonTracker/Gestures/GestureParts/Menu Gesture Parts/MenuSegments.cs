@@ -26,7 +26,7 @@ namespace KinectSkeltonTracker.Gestures.GestureParts
         /// </summary>
         /// <param name="body">The body.</param>
         /// <returns>GesturePartResult based on if the gesture part has been completed</returns>
-        public GesturePartResult CheckGesture(Body body, List<Body> bodyHistory)
+        public GesturePartResult CheckGesture(Body body, List<object> bodyHistory)
         {
             // Left and right hands below hip
             if (body.Joints[JointType.HandLeft].Position.Y < body.Joints[JointType.SpineBase].Position.Y && body.Joints[JointType.HandRight].Position.Y < body.Joints[JointType.SpineBase].Position.Y)
