@@ -12,6 +12,7 @@ namespace KinectSkeltonTracker.Gestures
     #region using...
 
     using Microsoft.Kinect;
+    using System.Collections.Generic;
 
     #endregion
 
@@ -26,6 +27,6 @@ namespace KinectSkeltonTracker.Gestures
         /// </summary>
         /// <param name="body">The body.</param>
         /// <returns>GesturePartResult based on if the gesture part has been completed</returns>
-        GesturePartResult CheckGesture(Body body);
+        GesturePartResult CheckGesture(Body body, List<Body> bodyHistory);
     }
 }

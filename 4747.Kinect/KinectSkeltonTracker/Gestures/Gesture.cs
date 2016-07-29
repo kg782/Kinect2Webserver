@@ -13,6 +13,7 @@ namespace KinectSkeltonTracker.Gestures
 
     using System;
     using Microsoft.Kinect;
+    using System.Collections.Generic;
 
     #endregion
 
@@ -71,7 +72,7 @@ namespace KinectSkeltonTracker.Gestures
         /// Updates the gesture.
         /// </summary>
         /// <param name="data">The body data.</param>
-        public void UpdateGesture(Body data)
+        public void UpdateGesture(Body data, List<Body> bodyHistory)
         {
             if (this.paused)
             {
@@ -83,7 +84,7 @@ namespace KinectSkeltonTracker.Gestures
                 this.frameCount++;
             }
 
-            GesturePartResult result = this.gestureParts[this.currentGesturePart].CheckGesture(data);
+            GesturePartResult result = this.gestureParts[this.currentGesturePart].CheckGesture(data, bodyHistory);
             if (result == GesturePartResult.Suceed)
             {
                 if (this.currentGesturePart + 1 < this.gestureParts.Length)

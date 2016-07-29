@@ -12,6 +12,7 @@ namespace KinectSkeltonTracker.Gestures.GestureParts
     #region using...
 
     using Microsoft.Kinect;
+    using System.Collections.Generic;
 
     #endregion
 
@@ -25,7 +26,7 @@ namespace KinectSkeltonTracker.Gestures.GestureParts
         /// </summary>
         /// <param name="body">The body.</param>
         /// <returns>GesturePartResult based on if the gesture part has been completed</returns>
-        public GesturePartResult CheckGesture(Body body)
+        public GesturePartResult CheckGesture(Body body, List<Body> bodyHistory)
         {
             // hand above elbow
             if (body.Joints[JointType.HandRight].Position.Y > body.Joints[JointType.ElbowRight].Position.Y)

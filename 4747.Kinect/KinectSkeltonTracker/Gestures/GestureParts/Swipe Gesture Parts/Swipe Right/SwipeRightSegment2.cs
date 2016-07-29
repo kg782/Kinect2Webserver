@@ -13,6 +13,7 @@ namespace KinectSkeltonTracker.Gestures.GestureParts
 
     using Microsoft.Kinect;
     using System;
+    using System.Collections.Generic;
 
     #endregion
 
@@ -26,7 +27,7 @@ namespace KinectSkeltonTracker.Gestures.GestureParts
         /// </summary>
         /// <param name="body">The body.</param>
         /// <returns>GesturePartResult based on if the gesture part has been completed</returns>
-        public GesturePartResult CheckGesture(Microsoft.Kinect.Body body)
+        public GesturePartResult CheckGesture(Microsoft.Kinect.Body body, List<Body> bodyHistory)
         {
             // Facing the sensors
             if (Math.Abs(body.Joints[JointType.ShoulderLeft].Position.Z - body.Joints[JointType.ShoulderRight].Position.Z) > Properties.Settings.Default.SholderFacingDistance)

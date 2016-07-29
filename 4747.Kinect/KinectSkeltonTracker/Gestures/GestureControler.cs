@@ -28,6 +28,11 @@ namespace KinectSkeltonTracker.Gestures
         private List<Gesture> gestures = new List<Gesture>();
 
         /// <summary>
+        /// History of bodies
+        /// </summary>
+        private List<Body> bodyHistory = new List<Body>();
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="GestureControler"/> class.
         /// </summary>
         public GestureControler()
@@ -47,8 +52,15 @@ namespace KinectSkeltonTracker.Gestures
         {
             foreach (Gesture gesture in this.gestures)
             {
-                gesture.UpdateGesture(data);
+                gesture.UpdateGesture(data, bodyHistory);
             }
+
+            // Add body to history
+            if (bodyHistory.Count >= 30)
+            {
+                bodyHistory.Remove(bodyHistory[0]);
+            }
+            bodyHistory.Insert(0, data);
         }
 
         /// <summary>
